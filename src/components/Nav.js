@@ -1,5 +1,16 @@
-const Nav = () => {
-    return (<div>Nav</div>);
+import whiteLogo from '../assets/White-Tinder-Logo.png';
+import colorLogo from '../assets/Tinder-Logo.png';
+
+const Nav = (props) => {
+
+    return (
+    <nav>
+        <div className="logo-container">
+        <img className="logo"  alt='Logo' width="1000"  height="75" src={props.minimal ? colorLogo : whiteLogo} />
+        </div>
+        {!props.authToken && !props.minimal && <button className="nav-button">Log In</button>}
+    </nav>
+    );
 };
 
 export default Nav;

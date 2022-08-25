@@ -1,20 +1,24 @@
-import React from 'react';
+import { useState } from 'react';
 import Nav from '../components/Nav';
 
+
+
 const Home = () => {
+    const [showModal, setShowModal] = useState(false);
+
     const authToken = false;
     const handleClick = () => {
         console.log('clicked');
     }
     return (
-        <React.Fragment>
-        <Nav/>
+        <div className="overlay">
+            <Nav minimal={false} authToken={authToken} />
             <div className="Home">
                 <h1>Swipe Right</h1>
                 <button className="primary-button" onClick={handleClick}>
                     {authToken ? 'SignOut' : 'SignUp'}
                 </button>
             </div>
-        </React.Fragment>)
+        </div>)
 }
 export default Home;
