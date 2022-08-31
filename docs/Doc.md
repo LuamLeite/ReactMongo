@@ -53,4 +53,4 @@ html {
 * {
   font-family: 'Readex Pro', 'Sans Serif';
 }```
-E voalá, parei aqui:https://youtu.be/Q70IMS-Qnjk?t=2897
+E voalá, parei aqui:https://youtu.be/Q70IMS-Qnjk?t=4526
