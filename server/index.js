@@ -6,8 +6,11 @@ const { MongoClient } = require('mongodb');
 const uri = 'mongodb+srv://guest:tinder@cluster0.kbpamzq.mongodb.net/Cluster0?retryWrites=true&w=majority';
 const { v4: uuidv4 } = require('uuid');
 const jwt = require('jsonwebtoken');
-const app = express()
-
+const cors = require('cors');
+const bcrypt = require('bcrypt');
+const app = express();
+app.use(cors()); //ficar livre da mensagem de cors
+app.use(express.json());
 //If we bisit /signup, send some stuff to the database
 app.get('/', (req, res) => {
     res.json('Hello to my app');
@@ -21,13 +24,13 @@ app.post('/signup', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10); //hasing the password
 
     try {
-        client.connect()
+        await client.connect()
         const database = client.db('app-data');
         const users = database.collection('users');
 
         //validar se já não existe um usuário com o mesmo email cadastrado
 
-        const existingUser = users.findOne({ email });
+        const existingUser = await users.findOne({ email });
 
         if (existingUser) {
             return res.status(409).send("User already exists. Please login");

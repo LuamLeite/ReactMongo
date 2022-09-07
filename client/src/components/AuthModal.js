@@ -6,7 +6,6 @@ const AuthModal = (props) => {
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
     const [passwordCheck, setPasswordCheck] = useState(null);
-    const [confirmPassword, setConfirmPassword] = useState(null);
     const [error, setError] = useState(null);
 
     let navigate = useNavigate(); //para navegarmos para outra pagina
@@ -18,7 +17,8 @@ const AuthModal = (props) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            if (props.isSignUp && (password !== confirmPassword)) {
+            console.log('password', password, passwordCheck);
+            if (props.isSignUp && (password !== passwordCheck)) {
                 setError("Passwords do not match");
                 return;
             }
