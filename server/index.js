@@ -50,6 +50,7 @@ app.post('/signup', async (req, res) => {
             expiresIn: 60 * 24,
         });
 
+        //Usaremos esse return statement como cookies
         res.status(201).json({ token, userId: generateduserId, email: sanitizedEmail });
     } catch (err) {
         console.log(err);

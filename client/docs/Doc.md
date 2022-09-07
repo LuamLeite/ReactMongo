@@ -83,4 +83,12 @@ Usamos navigate para navegar para outras páginas:
 
 
 Para conectamos ao MongoDB, entramos no site, clicamos em ConnectToApplication, copiamos o texto que eles nos dão e substituimos o password e website.
+
+Usaremos esse return statement como cookies, email, password hashed e token
+```javascript
+res.status(201).json({ token, userId: generateduserId, email: sanitizedEmail });
+const response = await axios.post('http://localhost:8000/signup', { email, password});
+```
+E agora no client, instalaremos npm i react-cookie
+
 E voalá, parei aqui:https://youtu.be/Q70IMS-Qnjk?t=10695
