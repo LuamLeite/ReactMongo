@@ -21,9 +21,8 @@ const AuthModal = (props) => {
                 setError("Passwords do not match");
                 return;
             }
-            console.log("make a post request to our database");
-
-            const response = await axios.post('http://localhost:8000/signup', { email, password });
+            console.log("make a post request to our database", props.isSignUp ? 'signup' : 'login');
+            const response = await axios.post(`http://localhost:8000/${props.isSignUp ? 'signup' : 'login'}`, { email, password });
 
             const success = response.status === 201;
 
@@ -31,9 +30,9 @@ const AuthModal = (props) => {
                 setCookie('Email', response.data.email);
                 setCookie('UserId', response.data.userId);
                 setCookie('AuthToken', response.data.token);
-                navigate('/onboarding');
             }
-
+            if(success && props.isSignUp) navigate('/onboarding');
+            if(success && !props.isSignup) navigate('/dashboard');
 
         } catch (error) {
             console.log(error);
