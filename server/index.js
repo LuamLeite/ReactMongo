@@ -20,6 +20,7 @@ app.get('/', (req, res) => {
 
 app.post('/signup', async (req, res) => {
     const client = new MongoClient(uri);
+
     const { email, password } = req.body;
     const generateduserId = uuidv4();
     const hashedPassword = await bcrypt.hash(password, 10); //hasing the password
@@ -52,7 +53,7 @@ app.post('/signup', async (req, res) => {
         });
 
         //Usaremos esse return statement como cookies, email, password hashed e token
-        res.status(201).json({ token, userId: generateduserId, email: sanitizedEmail });
+        res.status(201).json({ token, userId: user.user_id });
     } catch (err) {
         console.log(err);
     }
@@ -74,7 +75,7 @@ app.post('/login', async (req, res) => {
             const token = jwt.sign(user,email, {
                 expiresIn: 60 * 24
             });
-            res.status(201).json({token, userId: user.user_id, email});
+            res.status(201).json({token, userId: user.user_id});
         }
         res.status(400).send('Invalid Credentials');
     } catch (err) {
@@ -101,4 +102,37 @@ app.get('/users', async (req, res) => {
 
 })
 
+
+
+app.put('/user', async (req, res) => {
+    const client = new MongoClient(uri);
+    const formData = req.body.formData
+    try{
+        await client.connect();
+        const database = client.db('app-data');
+        const users = database.collection('users');
+
+        const query = { user_id: formData.user_id }
+        const updatedDocument = {
+            $set: {
+                first_name: formData.first_name,
+                dob_day: formData.dob_day,
+                dob_month: formData.dob_month,
+                dob_year: formData.dob_year,
+                show_gender: formData.show_gender,
+                gender_identity: formData.gender_identity,
+                gender_interest: formData.gender_interest,
+                url: formData.url,
+                about: formData.about,
+                matches: formData.matches
+            }
+        }
+        const insertedUser = await users.updateOne(query, updatedDocument);
+        res.send(insertedUser);
+    }
+    finally {
+        await client.close();
+    }
+
+})
 app.listen(PORT, () => console.log('Server running on PORT:' + PORT));
