@@ -9,7 +9,6 @@ const Home = () => {
     const [isSignUp, setIsSignUp] = useState(false);
     const authToken = false;
     const handleClick = () => {
-        console.log('clicked');
         setShowModal(true);
         setIsSignUp(true);
     }

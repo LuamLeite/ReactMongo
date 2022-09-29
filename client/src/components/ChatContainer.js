@@ -2,10 +2,11 @@ import MatchesDisplay from "./MatchesDisplay";
 import ChatDisplay from "./ChatDisplay";
 import ChatHeader from "./ChatHeader";
 
-const ChatContainer = () => {
+const ChatContainer = (props) => {
+    console.log('PROPS', props);
     return (
         <div className="chat-container">
-            <ChatHeader/>
+            <ChatHeader user={props.user}/>
 
             <div>
             <button className="option">

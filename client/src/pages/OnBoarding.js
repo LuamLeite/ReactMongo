@@ -27,7 +27,6 @@ const OnBoarding = () => {
         e.preventDefault();
         try {
             const response = await axios.put('http://localhost:8000/user', { formData });
-            console.log(response);
             const success = response.status === 200;
             if (success) {
                 navigate('/dashboard')
@@ -38,7 +37,6 @@ const OnBoarding = () => {
     }
 
     const handleChange = (e) => {
-        console.log('submitted', e);
         const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
         const name = e.target.name;
         console.log(value, name);
@@ -49,7 +47,6 @@ const OnBoarding = () => {
         }))
     }
 
-    console.log(formData);
 
     return (
         <>

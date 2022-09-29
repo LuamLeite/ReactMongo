@@ -71,16 +71,17 @@ app.post('/login', async (req, res) => {
         const user = await users.findOne({ email });
 
         const correctPassword = await bcrypt.compare(password, user.hashed_password);
-        if (user && correctPassword){
-            const token = jwt.sign(user,email, {
+        if (user && correctPassword) {
+            const token = jwt.sign(user, email, {
                 expiresIn: 60 * 24
             });
-            res.status(201).json({token, userId: user.user_id});
-        }
+            res.status(201).json({ token, userId: user.user_id });
+        } else {
         res.status(400).send('Invalid Credentials');
+    }
     } catch (err) {
         console.log(err);
-     }
+    }
 
 });
 
@@ -102,12 +103,29 @@ app.get('/users', async (req, res) => {
 
 })
 
+app.get('/user', async (req, res) => {
+    console.log('alo');
+    const client = new MongoClient(uri);
+    const userId = req.query.userId;
+    console.log('userId:', userId);
 
+    try {
+        await client.connect();
+        const database = client.db('app-data');
+        const users = database.collection('users');
+
+        const query = { user_id: userId };
+        const user = await users.findOne(query);
+        res.send(user);
+    } finally {
+        await client.close();
+    }
+})
 
 app.put('/user', async (req, res) => {
     const client = new MongoClient(uri);
     const formData = req.body.formData
-    try{
+    try {
         await client.connect();
         const database = client.db('app-data');
         const users = database.collection('users');

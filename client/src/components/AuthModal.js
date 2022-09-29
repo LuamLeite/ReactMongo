@@ -23,12 +23,9 @@ const AuthModal = (props) => {
             }
             console.log("make a post request to our database", props.isSignUp ? 'signup' : 'login');
             const response = await axios.post(`http://localhost:8000/${props.isSignUp ? 'signup' : 'login'}`, { email, password });
-            console.log('isSignUp', props.isSignUp);
-            console.log('response', response);
             const success = response.status === 201;
 
             if (success) {
-                console.log('response.data');
                 setCookie('AuthToken', response.data.token);
                 setCookie('UserId ', response.data.userId);
             }
