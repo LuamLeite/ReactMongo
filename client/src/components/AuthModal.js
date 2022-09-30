@@ -29,9 +29,14 @@ const AuthModal = (props) => {
                 setCookie('AuthToken', response.data.token);
                 setCookie('UserId ', response.data.userId);
             }
-            if(success && props.isSignUp) navigate('/onboarding');
-            if(success && !props.isSignup) navigate('/dashboard');
-
+            if (success && props.isSignUp) {
+                navigate('/onboarding');
+                window.location.reload();
+            }
+            if (success && !props.isSignup) {
+                navigate('/dashboard');
+                window.location.reload();
+            }
         } catch (error) {
             console.log(error);
         }
