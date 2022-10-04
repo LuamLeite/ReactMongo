@@ -24,16 +24,18 @@ const AuthModal = (props) => {
             console.log("make a post request to our database", props.isSignUp ? 'signup' : 'login');
             const response = await axios.post(`http://localhost:8000/${props.isSignUp ? 'signup' : 'login'}`, { email, password });
             const success = response.status === 201;
-
+            console.log('props.isSignUp', props.isSignUp);
             if (success) {
                 setCookie('AuthToken', response.data.token);
+                console.log('response.data', response.data);
                 setCookie('UserId ', response.data.userId);
             }
             if (success && props.isSignUp) {
+                console.log('ONBOARDING', props.isSignUp);
                 navigate('/onboarding');
                 window.location.reload();
-            }
-            if (success && !props.isSignup) {
+            } else if(success && !props.isSignup) {
+                console.log('Estamos navegando para o dashboard');
                 navigate('/dashboard');
                 window.location.reload();
             }

@@ -95,4 +95,4 @@ const response = await axios.post('http://localhost:8000/signup', { email, passw
 ```
 E agora no client, instalaremos npm i react-cookie
 
-E voalá, parei aqui:https://youtu.be/Q70IMS-Qnjk?t=13419
+E voalá, parei aqui:https://youtu.be/Q70IMS-Qnjk?t=14465
