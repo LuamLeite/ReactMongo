@@ -338,7 +338,8 @@ cardContainer {
 
 /* ==============================Chat Display==================================== */
 
-.chat-display {
+.chat-display,
+.matches-display {
   padding: 20px;
   height: 67vh;
   overflow-y: auto;

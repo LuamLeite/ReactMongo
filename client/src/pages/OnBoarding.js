@@ -23,24 +23,24 @@ const OnBoarding = () => {
     let navigate = useNavigate();
 
     const handleSubmit = async (e) => {
-        console.log('submitted', formData);
+        
         e.preventDefault();
         try {
             const response = await axios.put('http://localhost:8000/user', { formData });
             const success = response.status === 200;
-            console.log('response: ', response.data);
+            
             if (success) {
               navigate('/dashboard')
             }
         } catch (err) {
-            console.log(err);
+            
         }
     }
 
     const handleChange = (e) => {
         const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
         const name = e.target.name;
-        console.log(value, name);
+        
 
         setFormData((prevState) => ({
             ...prevState,

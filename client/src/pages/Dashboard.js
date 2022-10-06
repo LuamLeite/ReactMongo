@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useCookies } from 'react-cookie';
 
 const Dashboard = () => {
-  console.log('Dashboard call')
+  
   const [user, setUser] = useState(null);
   const [cookies, setCookie, removeCookie] = useCookies(['user']);
   const [genderedUsers, setGenderedUsers] = useState(null);
@@ -14,16 +14,16 @@ const Dashboard = () => {
 
   const userId = cookies.UserId;
 
-  console.log('userId', userId);
+  
   const getUser = async () => {
     try {
       const response = await axios.get('http://localhost:8000/user', {
         params: { userId }
       })
-      console.log('RESPONSE', response);
+      
       setUser(response.data);
     } catch (error) {
-      console.log(error);
+      
     }
   }
 
@@ -34,11 +34,11 @@ const Dashboard = () => {
       })
       setGenderedUsers(response.data);
     } catch (error) {
-      console.log(error);
+      
     }
   }
-  console.log('genderedUsers', genderedUsers);
-  console.log('user is here', user);
+  
+  
 
   useEffect(() => {
         getUser()
@@ -50,8 +50,8 @@ const Dashboard = () => {
         }
     }, [user])
 
-  console.log('user', user);
-  console.log('genderedUsers', genderedUsers);
+  
+  
   const characters = [
     {
       name: 'Law',
@@ -83,7 +83,7 @@ const Dashboard = () => {
       })
       getUser();
     } catch (error) {
-      console.log(error);
+      
     }
   }
 
@@ -97,7 +97,7 @@ const Dashboard = () => {
   }
 
   const outOfFrame = (name) => {
-    console.log(name + ' left the screen!')
+    
   }
 
   const matchedUserIds = user?.matches.map(({user_id}) => user_id).concat(userId);
@@ -105,7 +105,7 @@ const Dashboard = () => {
   const filteredGenderedUsers = genderedUsers?.filter(
     genderedUser => !matchedUserIds.includes(genderedUser.user_id)
   );
-    console.log('filteredGenderedUsers', filteredGenderedUsers);
+    
   return (
     <>
     { user &&
@@ -117,7 +117,7 @@ const Dashboard = () => {
             {filteredGenderedUsers.map((character) =>
               <TinderCard
                 className='swipe'
-                key={character.first_name}
+                key={character.user_id}
                 onSwipe={(dir) => swiped(dir, character.user_id)}
                 onCardLeftScreen={() => outOfFrame(character.first_name)}>
                 <div style={{ backgroundImage: 'url(' + character.url + ')' }} className='card'>
